@@ -6,6 +6,7 @@ especiarias, ervas e ingredientes alimentícios, com inteligência de mercado.
 Bilíngue (EN/PT), smooth scroll, animações de entrada. Construído em Next.js.
 
 - **Produção:** https://xpice-site.vercel.app
+- **Repositório:** https://github.com/Nexyohub/xpice-site
 - **Stack:** Next.js 15 · React 19 · Motion · Lenis · Geist
 
 ## Desenvolvimento
