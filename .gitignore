@@ -1,0 +1,8 @@
+node_modules
+.next
+.vercel
+out
+.playwright-mcp
+*.jpeg
+.DS_Store
+*.log
