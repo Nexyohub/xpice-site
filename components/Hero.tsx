@@ -1,12 +1,22 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
 import { useLang } from "./LanguageProvider";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function Hero() {
   const { t } = useLang();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const glow1Y = useTransform(scrollYProgress, [0, 1], [0, 160]);
+  const glow2Y = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const lineVariants = {
     hidden: { y: "110%" },
@@ -17,14 +27,14 @@ export default function Hero() {
   };
 
   return (
-    <section className="hero" id="top">
+    <section className="hero" id="top" ref={ref}>
       <div className="hero__bg" aria-hidden>
         <div className="hero__grid-lines" />
-        <div className="hero__glow hero__glow--1" />
-        <div className="hero__glow hero__glow--2" />
+        <motion.div className="hero__glow hero__glow--1" style={{ y: glow1Y }} />
+        <motion.div className="hero__glow hero__glow--2" style={{ y: glow2Y }} />
       </div>
 
-      <div className="container hero__inner">
+      <motion.div className="container hero__inner" style={{ y: contentY, opacity: contentOpacity }}>
         <motion.div
           className="eyebrow hero__eyebrow"
           initial={{ opacity: 0, y: 14 }}
@@ -92,7 +102,7 @@ export default function Hero() {
           <span className="scroll-dot" />
           {t.hero.scroll}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

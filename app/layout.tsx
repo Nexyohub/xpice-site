@@ -4,6 +4,8 @@ import { GeistMono } from "geist/font/mono";
 import { Instrument_Serif } from "next/font/google";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import SmoothScroll from "@/components/SmoothScroll";
+import ScrollProgress from "@/components/ScrollProgress";
+import BackToTop from "@/components/BackToTop";
 import "./globals.css";
 
 const serif = Instrument_Serif({
@@ -43,7 +45,9 @@ export default function RootLayout({
       <body>
         <LanguageProvider>
           <SmoothScroll />
+          <ScrollProgress />
           {children}
+          <BackToTop />
         </LanguageProvider>
       </body>
     </html>

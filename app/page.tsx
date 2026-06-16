@@ -118,6 +118,7 @@ export default function Page() {
                 <div className="cap__body">
                   <h3 className="cap__t">{c.t}</h3>
                   <p className="cap__d">{c.d}</p>
+                  <div className="cap__arrow">→</div>
                 </div>
               </StaggerItem>
             ))}
@@ -159,7 +160,7 @@ export default function Page() {
       <section className="section theme-navy" id="intelligence">
         <div className="container">
           <div className="intel__grid">
-            <div>
+            <div className="intel__left">
               <Reveal>
                 <div className="tag head__tag" style={{ color: "var(--saffron)" }}>
                   {t.intelligence.tag}
@@ -180,13 +181,14 @@ export default function Page() {
                 {t.intelligence.points.map((p, i) => (
                   <StaggerItem key={i} className="intel__point">
                     <span className="idx">{String(i + 1).padStart(2, "0")}</span>
-                    <span>{p}</span>
+                    <span className="txt">{p}</span>
+                    <span className="pt-arrow">→</span>
                   </StaggerItem>
                 ))}
               </Stagger>
             </div>
 
-            <Reveal delay={0.15} y={36}>
+            <Reveal delay={0.15} y={36} className="intel__panel-wrap">
               <div className="panel">
                 <div className="panel__head">
                   <span>XPICE Desk · Index</span>

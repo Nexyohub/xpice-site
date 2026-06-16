@@ -456,6 +456,17 @@ h3 {
 }
 .head__tag {
   margin-bottom: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.head__tag::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--saffron);
+  display: inline-block;
+  flex: none;
 }
 
 /* ============ About ============ */
@@ -619,34 +630,90 @@ h3 {
   display: grid;
   grid-template-columns: 1fr 0.86fr;
   gap: clamp(40px, 6vw, 90px);
-  align-items: center;
+  align-items: stretch;
 }
-.intel__points {
-  margin-top: 36px;
+.intel__left {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  border-top: 1px solid var(--line);
+}
+.intel__points {
+  margin-top: auto;
+  padding-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .intel__point {
   display: flex;
-  gap: 16px;
-  align-items: baseline;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
+  gap: 18px;
+  align-items: center;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
   font-size: 1.02rem;
+  background: rgba(247, 245, 239, 0.02);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s ease,
+    border-color 0.4s ease;
+}
+.intel__point::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--saffron);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.intel__point:hover {
+  transform: translateX(6px);
+  background: rgba(247, 245, 239, 0.06);
+  border-color: var(--line-strong);
+}
+.intel__point:hover::before {
+  transform: scaleY(1);
 }
 .intel__point .idx {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--saffron);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
+  width: 24px;
+  flex: none;
+}
+.intel__point .txt {
+  flex: 1;
+}
+.intel__point .pt-arrow {
+  font-family: var(--font-mono);
+  color: var(--saffron);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.intel__point:hover .pt-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+.intel__panel-wrap {
+  height: 100%;
 }
 .panel {
   border: 1px solid var(--line);
   border-radius: 18px;
   overflow: hidden;
   background: rgba(247, 245, 239, 0.04);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.panel .row {
+  flex: 1 1 0;
 }
 .panel__head {
   display: flex;
@@ -817,11 +884,11 @@ h3 {
 .cta__inner {
   position: relative;
   z-index: 2;
-  max-width: 60ch;
+  max-width: 880px;
   margin: 0 auto;
 }
 .cta h2 {
-  max-width: 16ch;
+  max-width: 14ch;
   margin: 0 auto;
 }
 .cta .lede {
@@ -949,6 +1016,95 @@ h3 {
   to {
     transform: translateX(-50%);
   }
+}
+
+/* ============ Scroll progress ============ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--saffron), var(--green-bright));
+  transform-origin: 0 50%;
+  z-index: 200;
+}
+
+/* ============ Back to top ============ */
+.back-to-top {
+  position: fixed;
+  right: clamp(18px, 3vw, 36px);
+  bottom: clamp(18px, 3vw, 36px);
+  z-index: 120;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--navy);
+  color: var(--cream);
+  font-size: 18px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 16px 40px -16px rgba(6, 18, 61, 0.5);
+  transition: background 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.back-to-top:hover {
+  background: var(--saffron);
+  color: var(--navy);
+  transform: translateY(-3px);
+}
+
+/* ============ Animated nav underline + active ============ */
+.header__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 1.5px;
+  background: var(--saffron);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.header__link:hover::after,
+.header__link.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.header__link.is-active {
+  opacity: 1;
+}
+
+/* ============ Capability hover arrow ============ */
+.cap__arrow {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  color: var(--saffron);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cap:hover .cap__arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ============ Region hover ============ */
+.region {
+  transition: background 0.4s ease;
+}
+.region:hover {
+  background: var(--navy-soft);
+}
+
+/* ============ Chip hover lift ============ */
+.chip {
+  transform: translateY(0);
+}
+.chip:hover {
+  transform: translateY(-2px);
 }
 
 /* ============ Responsive ============ */
